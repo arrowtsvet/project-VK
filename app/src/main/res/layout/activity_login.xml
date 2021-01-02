@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/login_animatedImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintEnd_toEndOf="@+id/login_text"
+        app:layout_constraintStart_toStartOf="@+id/login_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/animated_android"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/login_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="@string/login_start_text"
+        android:textColor="@color/black"
+
+
+        app:layout_constraintEnd_toEndOf="@+id/btnToActivity"
+        app:layout_constraintStart_toStartOf="@+id/btnToActivity"
+        app:layout_constraintTop_toBottomOf="@+id/login_animatedImage" />
+
+    <Button
+        android:id="@+id/btnToActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/red"
+        android:text="@string/login_buttom_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
