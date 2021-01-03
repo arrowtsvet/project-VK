@@ -3,21 +3,28 @@ package ru.quantum.myquantvk.activity
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import ru.quantum.myquantvk.R
+import ru.quantum.myquantvk.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var bindingActivityLogin: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        animateVKicon()
+
+        bindingActivityLogin = ActivityLoginBinding.inflate(layoutInflater)
+        val view = bindingActivityLogin.root
+
+        setContentView(view)
+
+        animateVK()
     }
 
-    private fun animateVKicon() {
-        val rocketImage = findViewById<ImageView>(R.id.login_animatedImage)
-        val drawable: Drawable = rocketImage.drawable
+    private fun animateVK() {
+        val loginAnimatedImage = bindingActivityLogin.loginAnimatedImage
+        val drawable: Drawable = loginAnimatedImage.drawable
         if (drawable is Animatable) {
             (drawable as Animatable).start()
         }
