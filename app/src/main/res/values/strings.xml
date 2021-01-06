@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Quant VK</string>
-    <string name="login_start_text">Нажмите \"Войти\" для входа в приложение\n \"Quant VK\"</string>
-    <string name="login_buttom">ВОЙТИ</string>
+    <string name="login_start_text">Для входа в приложение\n нажмите \"Войти\" </string>
+    <string name="login_buttom">Войти</string>
+    <string name="login_text">Quant VK</string>
 </resources>
