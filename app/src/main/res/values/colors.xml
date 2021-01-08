@@ -3,9 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#981445</color>
-    <color name="mainColor">#981445</color>
-    <color name="colorPrimaryVariant">#981445</color>
+
+    <color name="mainColor">#2D313D</color>
+    <color name="colorPrimaryVariant">#510A24</color>
+    <color name="colorPrimaryDark">#981445</color>
     <color name="logoColor">#981445</color>
+    <color name="headerColor">#D9981445</color>
+    <color name="navIconToolbar">#FFFFFFFF</color>
     <color name="mainDayNight">#FFFFFFFF</color>
     <color name="textAlt">#8D8F97</color>
 </resources>

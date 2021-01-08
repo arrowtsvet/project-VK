@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         val isNightModeOn: Boolean = appSettingPrefs.getBoolean("NightMode", false)
         val btnChangeTheme = bindingActivityLogin.switchTheme
 
-        if(isNightModeOn){
+        if (isNightModeOn) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
