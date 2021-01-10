@@ -1,84 +1,63 @@
 package ru.quantum.myquantvk.activity
 
+import android.graphics.Color.TRANSPARENT
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.mikepenz.materialdrawer.AccountHeader
-import com.mikepenz.materialdrawer.Drawer
+import androidx.core.view.GravityCompat
+import com.mindinventory.midrawer.MIDrawerView
+import ru.quantum.myquantvk.R
 import ru.quantum.myquantvk.databinding.ActivityMainBinding
+import ru.quantum.myquantvk.databinding.AppBarMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-
+    val TAG = "MIDrawerActivity"
     private lateinit var bindingActivityMain: ActivityMainBinding
-    private lateinit var mDrawer: Drawer
-    private lateinit var mHeader: AccountHeader
-    private lateinit var mToolbar: Toolbar
+    private lateinit var mBindingAppBar: AppBarMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
         bindingActivityMain = ActivityMainBinding.inflate(layoutInflater)
         val viewMain = bindingActivityMain.root
         setContentView(viewMain)
 
-        /*val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        setToolbar()
 
-        mDrawer = DrawerBuilder()
-             .withActivity(this)
-             .withToolbar(toolbar)
-             .withActionBarDrawerToggle(true)
-             .withHeader(R.layout.drawer_header)
-             .addDrawerItems(
-                 PrimaryDrawerItem().withIdentifier(100)
-                     .withIconTintingEnabled(true)
-                     .withName("Настройки")
-                     .withSelectable(false)
-             )
-             .build()*/
+        val actionbar = supportActionBar
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setHomeAsUpIndicator(R.drawable.ic_action_name)
+        bindingActivityMain.drawerLayout.setMIDrawerListener(object : MIDrawerView.MIDrawerEvents {
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+                Log.d(TAG, "Drawer Opened")
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                Log.d(TAG, "Drawer closed")
+            }
+        })
     }
 
-    /*override fun onStart() {
-         super.onStart()
-         initFields()
-         initFunc()
-     }
+    private fun setToolbar() {
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        bindingActivityMain.drawerLayout.setScrimColor(TRANSPARENT)
+        setSupportActionBar(toolbar)
+    }
 
-     private fun initFunc() {
-         setSupportActionBar(mToolbar)
-         createHeader()
-         createDrawer()
-     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                bindingActivityMain.drawerLayout.openDrawer(GravityCompat.START)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
-     private fun createDrawer() {
-         mDrawer = DrawerBuilder()
-             .withActivity(this)
-             .withToolbar(mToolbar)
-             .withActionBarDrawerToggle(true)
-             .withSelectedItem(-1)
-             .withAccountHeader(mHeader)
-             .addDrawerItems(
-                 PrimaryDrawerItem().withIdentifier(100)
-                     .withIconTintingEnabled(true)
-                     .withName("Настройки")
-                     .withSelectable(false)
-             ).build()
-     }
 
-     private fun createHeader() {
-         mHeader = AccountHeaderBuilder()
-             .withActivity(this)
-
-             .withHeaderBackground(R.drawable.header_image)
-             .addProfiles(
-                 ProfileDrawerItem().withName("Quant")
-             ).build()
-     }
-
-     private fun initFields() {
-         mToolbar = bindingActivityMain.toolbar
-     }*/
 }
