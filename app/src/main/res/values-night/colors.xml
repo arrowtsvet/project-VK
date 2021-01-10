@@ -5,15 +5,15 @@
     <color name="red">#981445</color>
 
     <color name="mainColor">#ffffff</color>
-    <color name="colorPrimaryVariant">#227A5E</color>
-    <color name="colorPrimaryDark">#227A5E</color>
+    <color name="colorPrimaryVariant">#2D313D</color>
+    <color name="colorPrimaryDark">#2D313D</color>
     <color name="logoColor">#30BA8E</color>
     <color name="headerColor">#D930BA8E</color>
     <color name="navIconToolbar">#30BA8E</color>
     <color name="mainDayNight">#181A20</color>
     <color name="textAlt">#8D8F97</color>
-    <color name="startColor">#227A5E</color>
-    <color name="toolbarStart">#227A5E</color>
-    <color name="toolbarEnd">#0F3C2E</color>
-    <color name="endColor">#1F2C7E</color>
+    <color name="startColor">#2D313D</color>
+    <color name="toolbarStart">#2D313D</color>
+    <color name="toolbarEnd">#121419</color>
+    <color name="endColor">#121419</color>
 </resources>

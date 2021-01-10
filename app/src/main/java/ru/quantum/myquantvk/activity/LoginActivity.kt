@@ -13,8 +13,6 @@ import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import ru.quantum.myquantvk.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -41,13 +39,6 @@ class LoginActivity : AppCompatActivity() {
         nextActivity.setOnClickListener {
             VK.login(this@LoginActivity, vkScopes)
         }
-        /*val nextActivity = bindingActivityLogin.toMainAct
-        nextActivity.setOnClickListener {
-            val toActivity = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(toActivity)
-        }*/
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

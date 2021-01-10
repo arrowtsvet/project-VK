@@ -54,7 +54,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
     implementation 'com.vk:androidsdk:2.1.1'
-
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.72"
     implementation 'com.github.mindinventory:minavdrawer:1.1.1'
     testImplementation 'junit:junit:4.13.1'
