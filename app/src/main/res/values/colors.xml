@@ -16,5 +16,6 @@
     <color name="toolbarStart">#981445</color>
     <color name="toolbarEnd">#7A0F36</color>
     <color name="endColor">#0D2768</color>
+    <color name="toogleColor">#FFFFFFFF</color>
 
 </resources>

@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.multidex.MultiDexApplication
 import com.mindinventory.midrawer.MIDrawerView
 import ru.quantum.myquantvk.R
 import ru.quantum.myquantvk.databinding.ActivityMainBinding
@@ -29,20 +30,18 @@ class MainActivity : AppCompatActivity() {
 
         val actionbar = supportActionBar
         actionbar?.setDisplayHomeAsUpEnabled(true)
-        actionbar?.setHomeAsUpIndicator(R.drawable.ic_action_name)
-        bindingActivityMain.drawerLayout.setMIDrawerListener(object : MIDrawerView.MIDrawerEvents {
+        actionbar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
+        bindingActivityMain.drawerLayout.setMIDrawerListener(object : MIDrawerView.MIDrawerEvents{
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
                 Log.d(TAG, "Drawer Opened")
-            }
-
+        }
             override fun onDrawerClosed(drawerView: View) {
                 super.onDrawerClosed(drawerView)
                 Log.d(TAG, "Drawer closed")
             }
         })
     }
-
     private fun setToolbar() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         bindingActivityMain.drawerLayout.setScrimColor(TRANSPARENT)

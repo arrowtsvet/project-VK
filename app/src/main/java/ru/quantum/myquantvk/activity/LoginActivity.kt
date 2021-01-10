@@ -6,8 +6,15 @@ import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.auth.VKAccessToken
+import com.vk.api.sdk.auth.VKAuthCallback
+import com.vk.api.sdk.auth.VKScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import ru.quantum.myquantvk.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -19,19 +26,54 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         bindingActivityLogin = ActivityLoginBinding.inflate(layoutInflater)
-        val viewLogin = bindingActivityLogin.root
-        setContentView(viewLogin)
+        setContentView(bindingActivityLogin.root)
 
         animateVK()
         changeThemeClick()
 
+        val vkScopes: ArrayList<VKScope> = arrayListOf(
+            VKScope.WALL,
+            VKScope.FRIENDS,
+            VKScope.GROUPS
+        )
+
         val nextActivity = bindingActivityLogin.toMainAct
+        nextActivity.setOnClickListener {
+            VK.login(this@LoginActivity, vkScopes)
+        }
+        /*val nextActivity = bindingActivityLogin.toMainAct
         nextActivity.setOnClickListener {
             val toActivity = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(toActivity)
+        }*/
+
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        val callback = object : VKAuthCallback {
+            override fun onLogin(token: VKAccessToken) {
+                Toast.makeText(
+                    applicationContext,
+                    "Пользователь авторизован",
+                    Toast.LENGTH_LONG
+                ).show()
+                val nextToAct = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(nextToAct)
+            }
+
+            override fun onLoginFailed(errorCode: Int) {
+                Toast.makeText(
+                    applicationContext,
+                    "Пользователь не авторизован",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
-
-
+        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     private fun animateVK() {
