@@ -1,6 +1,8 @@
 package ru.quantum.myquantvk.activity
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.mikepenz.materialdrawer.AccountHeader
@@ -39,6 +41,23 @@ class MainActivity : AppCompatActivity() {
                      .withSelectable(false)
              )
              .build()*/
+    }
+    override fun onBackPressed() {
+        AlertDialog.Builder(this).apply {
+            setTitle("Подтверждение")
+            setMessage("Нажмите 'Да', если хотите разлогиниться")
+
+            setPositiveButton("Да") { _, _ ->
+                super.onBackPressed()
+            }
+
+            setNegativeButton("Нет"){_, _ ->
+                // if user press no, then return the activity
+                Toast.makeText(this@MainActivity, "Thank you",
+                    Toast.LENGTH_LONG).show()
+            }
+            setCancelable(true)
+        }.create().show()
     }
 
     /*override fun onStart() {
