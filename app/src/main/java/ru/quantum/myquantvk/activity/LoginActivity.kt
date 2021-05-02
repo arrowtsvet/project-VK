@@ -13,6 +13,10 @@ import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.quantum.myquantvk.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -32,12 +36,21 @@ class LoginActivity : AppCompatActivity() {
         val vkScopes: ArrayList<VKScope> = arrayListOf(
             VKScope.WALL,
             VKScope.FRIENDS,
-            VKScope.GROUPS
+            VKScope.PHOTOS,
+            VKScope.GROUPS,
+            VKScope.STATUS,
+            VKScope.STATS,
+            VKScope.OFFLINE
         )
 
-        val nextActivity = bindingActivityLogin.toMainAct
-        nextActivity.setOnClickListener {
-            VK.login(this@LoginActivity, vkScopes)
+
+        bindingActivityLogin.toMainAct.setOnClickListener {
+            bindingActivityLogin.toMainAct.visibility = View.GONE
+            bindingActivityLogin.progressBar.visibility = View.VISIBLE
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(2000)
+                VK.login(this@LoginActivity, vkScopes)
+            }
         }
     }
 
@@ -50,6 +63,8 @@ class LoginActivity : AppCompatActivity() {
                     "Пользователь авторизован",
                     Toast.LENGTH_LONG
                 ).show()
+                bindingActivityLogin.progressBar.visibility = View.GONE
+                bindingActivityLogin.toMainAct.visibility = View.VISIBLE
                 val nextToAct = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(nextToAct)
             }
@@ -60,9 +75,13 @@ class LoginActivity : AppCompatActivity() {
                     "Пользователь не авторизован",
                     Toast.LENGTH_LONG
                 ).show()
+                bindingActivityLogin.progressBar.visibility = View.GONE
+                bindingActivityLogin.toMainAct.visibility = View.VISIBLE
             }
         }
         if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
+            bindingActivityLogin.progressBar.visibility = View.GONE
+            bindingActivityLogin.toMainAct.visibility = View.VISIBLE
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -100,4 +119,5 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
 }

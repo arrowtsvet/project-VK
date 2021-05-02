@@ -1,70 +1,103 @@
 package ru.quantum.myquantvk.activity
 
-import android.graphics.Color.TRANSPARENT
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.navigation.NavController
-import com.mindinventory.midrawer.MIDrawerView
-import ru.quantum.myquantvk.R
+import com.mikepenz.materialdrawer.AccountHeader
+import com.mikepenz.materialdrawer.Drawer
 import ru.quantum.myquantvk.databinding.ActivityMainBinding
-import ru.quantum.myquantvk.databinding.ContentMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    val TAG = "DrawerToolbar"
-    private lateinit var navController: NavController
-    private lateinit var mBindingActivityMain: ActivityMainBinding
-    private lateinit var mBindingContentMain: ContentMainBinding
+
+    private lateinit var bindingActivityMain: ActivityMainBinding
+    private lateinit var mDrawer: Drawer
+    private lateinit var mHeader: AccountHeader
+    private lateinit var mToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        mBindingActivityMain = ActivityMainBinding.inflate(layoutInflater)
-        val viewMain = mBindingActivityMain.root
+
+        bindingActivityMain = ActivityMainBinding.inflate(layoutInflater)
+        val viewMain = bindingActivityMain.root
         setContentView(viewMain)
 
-        setToolbar()
-        //navController = findNavController(R.id.nav_host_fragment)
-        //val navigationView = mBindingContentMain.navigationView
-        //NavigationUI.setupWithNavController(navigationView, navController)
-
-    }
-
-    private fun setToolbar() {
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        mBindingActivityMain.drawerLayout.setScrimColor(TRANSPARENT)
+        /*val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        mDrawer = DrawerBuilder()
+             .withActivity(this)
+             .withToolbar(toolbar)
+             .withActionBarDrawerToggle(true)
+             .withHeader(R.layout.drawer_header)
+             .addDrawerItems(
+                 PrimaryDrawerItem().withIdentifier(100)
+                     .withIconTintingEnabled(true)
+                     .withName("Настройки")
+                     .withSelectable(false)
+             )
+             .build()*/
+    }
+    override fun onBackPressed() {
+        AlertDialog.Builder(this).apply {
+            setTitle("Подтверждение")
+            setMessage("Нажмите 'Да', если хотите разлогиниться")
 
-        val actionbar = supportActionBar
-        actionbar?.setDisplayHomeAsUpEnabled(true)
-        actionbar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
-
-        mBindingActivityMain.drawerLayout.setMIDrawerListener(object : MIDrawerView.MIDrawerEvents {
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
-                Log.d(TAG, "Drawer Opened")
+            setPositiveButton("Да") { _, _ ->
+                super.onBackPressed()
             }
 
-            override fun onDrawerClosed(drawerView: View) {
-                super.onDrawerClosed(drawerView)
-                Log.d(TAG, "Drawer closed")
+            setNegativeButton("Нет"){_, _ ->
+                // if user press no, then return the activity
+                Toast.makeText(this@MainActivity, "Thank you",
+                    Toast.LENGTH_LONG).show()
             }
-        })
+            setCancelable(true)
+        }.create().show()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                mBindingActivityMain.drawerLayout.openDrawer(GravityCompat.START)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    /*override fun onStart() {
+         super.onStart()
+         initFields()
+         initFunc()
+     }
+
+     private fun initFunc() {
+         setSupportActionBar(mToolbar)
+         createHeader()
+         createDrawer()
+     }
+
+     private fun createDrawer() {
+         mDrawer = DrawerBuilder()
+             .withActivity(this)
+             .withToolbar(mToolbar)
+             .withActionBarDrawerToggle(true)
+             .withSelectedItem(-1)
+             .withAccountHeader(mHeader)
+             .addDrawerItems(
+                 PrimaryDrawerItem().withIdentifier(100)
+                     .withIconTintingEnabled(true)
+                     .withName("Настройки")
+                     .withSelectable(false)
+             ).build()
+     }
+
+     private fun createHeader() {
+         mHeader = AccountHeaderBuilder()
+             .withActivity(this)
+
+             .withHeaderBackground(R.drawable.header_image)
+             .addProfiles(
+                 ProfileDrawerItem().withName("Quant")
+             ).build()
+     }
+
+     private fun initFields() {
+         mToolbar = bindingActivityMain.toolbar
+     }*/
 }
